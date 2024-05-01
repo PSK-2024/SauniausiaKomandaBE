@@ -11,6 +11,7 @@ namespace SaunausiaKomanda.API.Abstractions.Repositories
         Task CreateAsync(T entity);
         Task CreateAsync(IEnumerable<T> entities);
         void Update(T entity);
+        void Update(IEnumerable<T> entities);
         void Delete(T entity);
         Task DeleteAsync(Expression<Func<T, bool>> predicate);
         Task DeleteAllAsync();
