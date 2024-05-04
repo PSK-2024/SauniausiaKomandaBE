@@ -31,9 +31,9 @@ namespace SaunausiaKomanda.API.Data
                 .ToList();
 
             // TODO: rename to CreatedDT, also in model store
-            inserts.ForEach(E =>
+            inserts.ForEach(e =>
             {
-                E.Property("CreationTime").CurrentValue = DateTime.Now;
+                e.Property("CreationTime").CurrentValue = DateTime.Now;
             });
 
             var updates = ChangeTracker.Entries()
