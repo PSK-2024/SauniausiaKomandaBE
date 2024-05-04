@@ -5,10 +5,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <UserSecretsId>0b9c50c6-6d79-4fab-8d31-a7d122a1a243</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.18" />
@@ -22,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
