@@ -11,7 +11,6 @@
                 {
                     options.DocumentTitle = "Šaunausia Komanda API";
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                    options.RoutePrefix = string.Empty;
                 });
             }
 
