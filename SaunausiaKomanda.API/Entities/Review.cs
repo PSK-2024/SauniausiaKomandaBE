@@ -8,7 +8,7 @@ namespace SaunausiaKomanda.API.Entities
     {
         // TODO: Not clear whether at the moment "Comments" stand for actual comments or reviews, because of the stars displayed above.
         // Will need to comeback to adjust index based on answers
-        public required int Id { get; set; }
+        public int Id { get; set; }
         public required int UserId { get; set; }
         public required User User { get; set; }
         public required int RecipeId { get; set; }
