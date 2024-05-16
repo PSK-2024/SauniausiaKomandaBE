@@ -33,7 +33,10 @@ namespace SaunausiaKomanda.API.Data
             // TODO: rename to CreatedDT, also in model store
             inserts.ForEach(e =>
             {
-                e.Property("CreationTime").CurrentValue = DateTime.Now;
+                if (e.GetType().GetProperty("CreationTime") != null)
+                {
+                    e.Property("CreationTime").CurrentValue = DateTime.Now;
+                }
             });
 
             var updates = ChangeTracker.Entries()
@@ -43,7 +46,10 @@ namespace SaunausiaKomanda.API.Data
             // TODO: rename to ModifiedDT, also in model store
             updates.ForEach(e =>
             {
-                e.Property("ModifiedDate").CurrentValue = DateTime.Now;
+                if (e.GetType().GetProperty("ModifiedDate") != null)
+                {
+                    e.Property("ModifiedDate").CurrentValue = DateTime.Now;
+                }
             });
 
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
