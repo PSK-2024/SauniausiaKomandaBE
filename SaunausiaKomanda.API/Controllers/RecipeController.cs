@@ -20,7 +20,7 @@ namespace SaunausiaKomanda.API.Controllers
         /// </summary>
         /// <response code="200">All recipes retrieved</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpGet("/all")]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
             var allRecipes = await _unitOfWork.Recipes.GetAllAsync();
