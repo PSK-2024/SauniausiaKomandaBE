@@ -26,13 +26,13 @@ jobs:
         run: dotnet build SaunausiaKomanda.API\SaunausiaKomanda.API.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/SaunausiaKomanda.API\SaunausiaKomanda.API.csproj
+        run: dotnet publish SaunausiaKomanda.API\SaunausiaKomanda.API.csproj -c Release -o ${{env.DOTNET_ROOT}}/pskbackend
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/SaunausiaKomanda.API\SaunausiaKomanda.API.csproj
+          path: ${{env.DOTNET_ROOT}}/pskbackend
 
   deploy:
     runs-on: windows-latest
