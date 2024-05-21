@@ -9,10 +9,12 @@ namespace SaunausiaKomanda.API.Controllers
     public class RecipeController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        public IConfiguration _config; 
 
-        public RecipeController(IUnitOfWork unitOfWork)
+        public RecipeController(IUnitOfWork unitOfWork, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
+            _config = config;
         }
 
         /// <summary>
@@ -23,9 +25,12 @@ namespace SaunausiaKomanda.API.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
-            var allRecipes = await _unitOfWork.Recipes.GetAllAsync();
 
-            return Ok(allRecipes);
+            var value = _config.GetConnectionString("DefaultConnection");
+            var value2 = _config.GetConnectionString("SQLCONNSTR_DefaultConnection");
+
+
+            return Ok(value + " <> " + value2);
         }
     }
 }
