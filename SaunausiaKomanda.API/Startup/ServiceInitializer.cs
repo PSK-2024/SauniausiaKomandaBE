@@ -35,7 +35,7 @@ namespace SaunausiaKomanda.API.Startup
         private static void RegisterDbContext(IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<ApplicationDbContext>(options => { 
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")); 
+                options.UseSqlServer(config.GetConnectionString("SQLCONNSTR_DefaultConnection")); 
             });
         }
 
@@ -45,6 +45,9 @@ namespace SaunausiaKomanda.API.Startup
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IRecipeRepository, RecipeRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
         }
     }
 }
