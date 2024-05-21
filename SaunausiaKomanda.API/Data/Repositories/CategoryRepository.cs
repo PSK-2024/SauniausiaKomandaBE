@@ -4,10 +4,8 @@ using SaunausiaKomanda.API.Entities;
 
 namespace SaunausiaKomanda.API.Data.Repositories
 {
-    public class TagRepository : Repository<Tag>, ITagRepository
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
-        public TagRepository(IApplicationDbContext context) : base(context)
-        {
-        }
+        public CategoryRepository(IApplicationDbContext context) : base(context) { }
     }
 }

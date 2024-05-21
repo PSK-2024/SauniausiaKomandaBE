@@ -12,6 +12,13 @@ namespace SaunausiaKomanda.API.Data
         }
 
         public virtual DbSet<Recipe> Recipe { get; set; }
+        public virtual DbSet<Review> Review { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Favorite> Favorite { get; set; }
+        public virtual DbSet<Image> Image { get; set; }
+        public virtual DbSet<Ingredient> Ingredient { get; set; }
+        public virtual DbSet<Step> Step { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SaunausiaKomanda.API.Abstractions;
 using SaunausiaKomanda.API.Abstractions.Repositories;
+using SaunausiaKomanda.API.Abstractions.Services;
 using SaunausiaKomanda.API.Data;
 using SaunausiaKomanda.API.Data.Repositories;
+using SaunausiaKomanda.API.Services;
 
 namespace SaunausiaKomanda.API.Startup
 {
@@ -34,7 +36,8 @@ namespace SaunausiaKomanda.API.Startup
 
         private static void RegisterDbContext(IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<ApplicationDbContext>(options => { 
+            services.AddDbContext<ApplicationDbContext>(options => {
+                options.UseLazyLoadingProxies();
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")); 
             });
         }
@@ -45,9 +48,13 @@ namespace SaunausiaKomanda.API.Startup
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IRecipeRepository, RecipeRepository>();
-            services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IStepRepository, StepRepository>();
+
+            services.AddScoped<IRecipeService, RecipeService>();
+            services.AddScoped<IImageWriter, ImageToFileService>();
         }
     }
 }

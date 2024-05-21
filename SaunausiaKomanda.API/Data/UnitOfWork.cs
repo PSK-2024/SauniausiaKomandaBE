@@ -11,22 +11,24 @@ namespace SaunausiaKomanda.API.Data
         public UnitOfWork(
             IApplicationDbContext context,
             IRecipeRepository recipeRepository,
-            ITagRepository tagRepository,
             IUserRepository userRepository,
-            IImageRepository imageRepository)
+            ICategoryRepository categoryRepository,
+            IImageRepository imageRepository,
+            IStepRepository stepRepository)
         {
             _context = context;
             Recipes = recipeRepository;
-            Tags = tagRepository;
             Users = userRepository;
             Images = imageRepository;
+            Categories = categoryRepository;
+            Steps = stepRepository;
         }
 
         public IRecipeRepository Recipes { get; }
-        public ITagRepository Tags { get; }
         public IUserRepository Users { get; }
         public IImageRepository Images { get; }
-
+        public ICategoryRepository Categories { get; }
+        public IStepRepository Steps { get; }
 
         private bool _disposed = false;
         protected virtual void Dispose(bool disposing)

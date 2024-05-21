@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaunausiaKomanda.API.Data;
 
@@ -11,9 +12,11 @@ using SaunausiaKomanda.API.Data;
 namespace SaunausiaKomanda.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240521174638_Virtuals")]
+    partial class Virtuals
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,6 +41,21 @@ namespace SaunausiaKomanda.API.Migrations
                     b.HasIndex("RecipesId");
 
                     b.ToTable("CategoryRecipe");
+                });
+
+            modelBuilder.Entity("RecipeTag", b =>
+                {
+                    b.Property<int>("RecipesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecipesId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("RecipeTag");
                 });
 
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.Category", b =>
@@ -150,6 +168,10 @@ namespace SaunausiaKomanda.API.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ImageId")
                         .HasColumnType("int");
 
@@ -241,6 +263,26 @@ namespace SaunausiaKomanda.API.Migrations
                     b.ToTable("Step");
                 });
 
+            modelBuilder.Entity("SaunausiaKomanda.API.Entities.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Value")
+                        .IsUnique();
+
+                    b.ToTable("Tag");
+                });
+
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -301,6 +343,21 @@ namespace SaunausiaKomanda.API.Migrations
                     b.HasOne("SaunausiaKomanda.API.Entities.Recipe", null)
                         .WithMany()
                         .HasForeignKey("RecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipeTag", b =>
+                {
+                    b.HasOne("SaunausiaKomanda.API.Entities.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("RecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SaunausiaKomanda.API.Entities.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

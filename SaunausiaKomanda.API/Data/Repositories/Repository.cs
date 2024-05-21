@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SaunausiaKomanda.API.Abstractions;
 using SaunausiaKomanda.API.Abstractions.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace SaunausiaKomanda.API.Data.Repositories
@@ -28,6 +30,36 @@ namespace SaunausiaKomanda.API.Data.Repositories
         public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate) => await _context.Set<T>().FirstOrDefaultAsync(predicate);
         public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
         public async Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> predicate) => await _context.Set<T>().Where(predicate).ToListAsync();
+        public async Task<IEnumerable<T>> GetManyAsync(
+            Expression<Func<T, bool>>? filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+            int? itemsToSkip = null,
+            int? itemsToTake = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            if (itemsToSkip != null)
+            {
+                query = query.Skip((int)itemsToSkip);
+            }
+
+            if (itemsToTake != null)
+            {
+                query = query.Take((int)itemsToTake);
+            }
+
+            return await query.ToListAsync();
+        }
         public async Task SaveAsync() => await _context.SaveChangesAsync();
         public void Update(T entity) => _context.Set<T>().Update(entity);
         public void Update(IEnumerable<T> entities) => _context.Set<T>().UpdateRange(entities);

@@ -9,12 +9,12 @@ namespace SaunausiaKomanda.API.Entities
         // TODO: Not clear whether at the moment "Comments" stand for actual comments or reviews, because of the stars displayed above.
         // Will need to comeback to adjust index based on answers
         public int Id { get; set; }
-        public required int UserId { get; set; }
-        public required User User { get; set; }
-        public required int RecipeId { get; set; }
-        public required Recipe Recipe { get; set; }
+        public int UserId { get; set; }
+        public virtual required User User { get; set; }
+        public int RecipeId { get; set; }
+        public virtual Recipe Recipe { get; set; } = null!;
         [Range(1,5)]
-        public required int Stars { get; set;}
+        public int Stars { get; set;}
         public string Comment { get; set; } = string.Empty;
         public DateTime CreationTime { get; set; }
         public DateTime? ModifiedDate { get; set; }

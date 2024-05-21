@@ -5,9 +5,10 @@ namespace SaunausiaKomanda.API.Abstractions
     public interface IUnitOfWork : IDisposable
     {
         IRecipeRepository Recipes { get; }
-        ITagRepository Tags { get; }
         IUserRepository Users { get; }
         IImageRepository Images { get; }
+        ICategoryRepository Categories { get; }
+        IStepRepository Steps { get; }
 
         Task SaveAsync(CancellationToken cancellationToken = default);
     }

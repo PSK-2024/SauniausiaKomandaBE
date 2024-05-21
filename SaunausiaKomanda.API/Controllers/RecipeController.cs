@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SaunausiaKomanda.API.Abstractions;
+using SaunausiaKomanda.API.Abstractions.Services;
+using SaunausiaKomanda.API.DTOs.Request;
 
 namespace SaunausiaKomanda.API.Controllers
 {
@@ -8,24 +9,41 @@ namespace SaunausiaKomanda.API.Controllers
     [ApiController]
     public class RecipeController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRecipeService _recipeService;
 
-        public RecipeController(IUnitOfWork unitOfWork)
+        public RecipeController(IRecipeService recipeService)
         {
-            _unitOfWork = unitOfWork;
+            _recipeService = recipeService;
         }
 
-        /// <summary>
-        /// Retrieves all recipes
-        /// </summary>
-        /// <response code="200">All recipes retrieved</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpGet("all")]
-        public async Task<IActionResult> GetAll()
-        {   
-            var allRecipes = await _unitOfWork.Recipes.GetAllAsync();
+        [ActionName("GetRecipe")]
+        [HttpGet("{recipeId}")]
+        public async Task<IActionResult> GetRecipe([FromRoute] int recipeId)
+        {
+            return Ok(await _recipeService.GetRecipeById(recipeId));
+        }
 
-            return Ok(allRecipes);
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("preview")]
+        public async Task<IActionResult> GetRecipesShort()
+        {
+
+            return Ok(await _recipeService.GetRecipesShort());
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("recommended")]
+        public async Task<IActionResult> GetRecommended([FromQuery] int top = 5)
+        {
+            return Ok(await _recipeService.GetRecommended(top));
+        }
+
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [HttpPost]
+        public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeRequestDTO recipeToCreate)
+        {
+            return Created("GetName", new { id = await _recipeService.CreateRecipe(recipeToCreate)});
         }
     }
 }

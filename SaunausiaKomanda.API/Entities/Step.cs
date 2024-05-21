@@ -6,9 +6,9 @@ namespace SaunausiaKomanda.API.Entities
     public class Step
     {
         public int Id { get; set; }
-        public required int Sequence { get; set; }
-        public required string Description { get; set; }
-        public required int RecipeId { get; set; }
-        public required Recipe Recipe { get; set; }
+        public int Sequence { get; set; }
+        public string Description { get; set; } = null!;
+        public int RecipeId { get; set; }
+        public virtual Recipe Recipe { get; set; } = null!;
     }
 }

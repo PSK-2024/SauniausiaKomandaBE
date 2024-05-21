@@ -7,20 +7,20 @@ namespace SaunausiaKomanda.API.Entities
     public class User
     {
         public int Id { get; set; }
-        public required string Username { get; set; }
-        public required string Email { get; set; }
-        public required string Password { get; set; }
+        public string Username { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string Password { get; set; } = null!;
         // TODO: If remember me (refresh token) will be required for recieving valid tokens without entering password
         // additional fields/table will be required
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
+        public string FirstName { get; set; } = null!;
+        public string LastName { get; set; } = null!;
         public DateTime CreationTime { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string About { get; set; } = string.Empty;
         [DeleteBehavior(DeleteBehavior.ClientCascade)]
-        public ICollection<Recipe> Recipes { get; } = new List<Recipe>();
+        public virtual ICollection<Recipe> Recipes { get; } = new List<Recipe>();
         [DeleteBehavior(DeleteBehavior.ClientCascade)]
-        public ICollection<Favorite> Favorites { get; } = new List<Favorite>();
-        public ICollection<Review> Review { get; } = new List<Review>();
+        public virtual ICollection<Favorite> Favorites { get; } = new List<Favorite>();
+        public virtual ICollection<Review> Review { get; } = new List<Review>();
     }
 }

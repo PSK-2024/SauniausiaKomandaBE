@@ -6,6 +6,11 @@ namespace SaunausiaKomanda.API.Abstractions.Repositories
     {
         Task<T?> GetAsync(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<T>> GetManyAsync(
+            Expression<Func<T, bool>>? filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+            int? itemsToSkip = null,
+            int? itemsToTake = null);
         Task<IEnumerable<T>> GetAllAsync();
         Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
         Task CreateAsync(T entity);

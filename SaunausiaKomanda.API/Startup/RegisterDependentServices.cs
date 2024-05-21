@@ -7,6 +7,7 @@
             var config = builder.Configuration;
 
             builder.Services.RegisterApplicationServices(config);
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return builder;
         }

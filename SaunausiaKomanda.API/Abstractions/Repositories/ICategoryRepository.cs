@@ -2,7 +2,7 @@
 
 namespace SaunausiaKomanda.API.Abstractions.Repositories
 {
-    public interface ITagRepository : IRepository<Tag>
+    public interface ICategoryRepository : IRepository<Category>
     {
     }
 }

@@ -356,3 +356,5 @@ launch.json
 tasks.json
 
 !appsettings.json
+
+**/wwwroot/images/*

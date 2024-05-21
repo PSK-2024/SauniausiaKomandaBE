@@ -6,7 +6,7 @@ namespace SaunausiaKomanda.API.Entities
     public class Category
     {
         public int Id { get; set; }
-        public required string Name { get; set; }
-        public ICollection<Recipe> Recipes { get; } = new List<Recipe>();
+        public string Name { get; set; } = null!;
+        public virtual ICollection<Recipe> Recipes { get; } = new List<Recipe>();
     }
 }
