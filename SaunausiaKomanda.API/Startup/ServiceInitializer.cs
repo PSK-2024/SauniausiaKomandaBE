@@ -35,7 +35,7 @@ namespace SaunausiaKomanda.API.Startup
         private static void RegisterDbContext(IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<ApplicationDbContext>(options => { 
-                options.UseSqlServer(config.GetConnectionString("SQLCONNSTR_DefaultConnection")); 
+                options.UseSqlServer(config.GetConnectionString("DefaultConnection")); 
             });
         }
 
