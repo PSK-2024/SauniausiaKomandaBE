@@ -36,26 +36,16 @@ namespace SaunausiaKomanda.API.Services
                     throw new Exception("Invalid image type");
             }
 
-            string webRoot = "";
-            var path = "";
-            try 
+            string path;
+            if (_environment.WebRootPath is not null)
             {
-                if (string.IsNullOrWhiteSpace(_environment.WebRootPath))
-                {
-                    webRoot = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-                }
-                else
-                {
-                    webRoot = _environment.WebRootPath;
-                }
-
-                path = Path.Combine(webRoot, "images");
+                path = _environment.WebRootPath;
+                path = Path.Combine(path, "images");
             }
-            catch
+            else
             {
-                throw new Exception($"webroot: {webRoot}, dir: {Directory.GetCurrentDirectory}");
+                path = Directory.GetCurrentDirectory();
             }
-
             Directory.CreateDirectory(path);
             path = Path.Combine(path, uniqueFileName);
 
