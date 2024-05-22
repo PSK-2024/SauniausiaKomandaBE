@@ -6,6 +6,7 @@
         {
             var config = builder.Configuration;
 
+            builder.Services.AddApplicationInsightsTelemetry();
             builder.Services.RegisterApplicationServices(config);
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
