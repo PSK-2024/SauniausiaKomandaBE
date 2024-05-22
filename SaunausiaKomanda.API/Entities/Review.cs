@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SaunausiaKomanda.API.Entities
 {
@@ -10,8 +11,10 @@ namespace SaunausiaKomanda.API.Entities
         // Will need to comeback to adjust index based on answers
         public int Id { get; set; }
         public int UserId { get; set; }
-        public virtual required User User { get; set; }
+        [JsonIgnore]
+        public virtual User User { get; set; } = null!;
         public int RecipeId { get; set; }
+        [JsonIgnore]
         public virtual Recipe Recipe { get; set; } = null!;
         [Range(1,5)]
         public int Stars { get; set;}

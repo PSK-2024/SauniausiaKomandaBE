@@ -17,33 +17,32 @@ namespace SaunausiaKomanda.API.Controllers
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ActionName("GetRecipe")]
+        [ActionName(nameof(GetRecipeById))]
         [HttpGet("{recipeId}")]
-        public async Task<IActionResult> GetRecipe([FromRoute] int recipeId)
+        public async Task<IActionResult> GetRecipeById([FromRoute] int recipeId)
         {
-            return Ok(await _recipeService.GetRecipeById(recipeId));
+            return Ok(await _recipeService.GetRecipeByIdAsync(recipeId));
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("preview")]
-        public async Task<IActionResult> GetRecipesShort()
+        public async Task<IActionResult> GetShort([FromQuery] string? categoryFilter)
         {
-
-            return Ok(await _recipeService.GetRecipesShort());
+            return Ok(await _recipeService.GetRecipesShortAsync(categoryFilter));
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("recommended")]
         public async Task<IActionResult> GetRecommended([FromQuery] int top = 5)
         {
-            return Ok(await _recipeService.GetRecommended(top));
+            return Ok(await _recipeService.GetRecommendedAsync(top));
         }
 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeRequestDTO recipeToCreate)
         {
-            return Created("GetName", new { id = await _recipeService.CreateRecipe(recipeToCreate)});
+            return Created(nameof(GetRecipeById), new { id = await _recipeService.CreateRecipeAsync(recipeToCreate)});
         }
     }
 }

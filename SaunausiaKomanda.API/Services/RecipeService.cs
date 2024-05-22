@@ -7,6 +7,7 @@ using SaunausiaKomanda.API.DTOs.Request;
 using SaunausiaKomanda.API.DTOs.Response;
 using SaunausiaKomanda.API.Entities;
 using SaunausiaKomanda.API.Enums;
+using SaunausiaKomanda.API.Filters;
 
 namespace SaunausiaKomanda.API.Services
 {
@@ -23,7 +24,7 @@ namespace SaunausiaKomanda.API.Services
             _imageWriter = imageWriter;
         }
 
-        public async Task<DetailedRecipeResponseDTO> GetRecipeById(int id)
+        public async Task<DetailedRecipeResponseDTO> GetRecipeByIdAsync(int id)
         {
             var recipe = await _unitOfWork.Recipes.GetAsync(x => x.Id == id);
             if (recipe == null)
@@ -51,15 +52,28 @@ namespace SaunausiaKomanda.API.Services
             return result;
         }
 
-        public async Task<List<ShortRecipeResponseDTO>> GetRecipesShort()
+        public async Task<List<ShortRecipeResponseDTO>> GetRecipesShortAsync(string? categoryFilter)
         {
-            var allRecipes = await _unitOfWork.Recipes.GetAllAsync();
+            var queryPred = PredicateBuilder.True<Recipe>();
+
+            if (categoryFilter != null)
+            {
+                var categoryPred = PredicateBuilder.False<Recipe>();
+                foreach (var categoryToFetch in categoryFilter.Split(","))
+                {
+                    categoryPred = categoryPred.Or(x => x.Categories.Any(c => c.Name == categoryToFetch));
+                }
+
+                queryPred = queryPred.And(categoryPred);
+            }
+
+            var allRecipes = await _unitOfWork.Recipes.GetManyAsync(queryPred);
             var result = _mapper.Map<List<ShortRecipeResponseDTO>>(allRecipes.ToList());
 
             return result;
         }
 
-        public async Task<List<ShortRecipeResponseDTO>> GetRecommended(int top)
+        public async Task<List<ShortRecipeResponseDTO>> GetRecommendedAsync(int top)
         {
             // TODO: Need to check after more reviews/recipes are added [sus]
             var allRecipes = await _unitOfWork.Recipes.GetManyAsync(orderBy: x => x.OrderByDescending(p => p.Reviews.Average(r => r.Stars)), itemsToTake: top);
@@ -68,7 +82,7 @@ namespace SaunausiaKomanda.API.Services
             return result;
         }
 
-        public async Task<int> CreateRecipe(CreateRecipeRequestDTO recipeToCreate)
+        public async Task<int> CreateRecipeAsync(CreateRecipeRequestDTO recipeToCreate)
         {
             var recipe = new Recipe
             {

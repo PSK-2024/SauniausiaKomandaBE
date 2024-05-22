@@ -1,4 +1,6 @@
-﻿namespace SaunausiaKomanda.API.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace SaunausiaKomanda.API.Entities
 {
     public class Ingredient
     {
@@ -6,6 +8,7 @@
         public int Id { get; set; }
         public string Group { get; set; } = "";
         public string Description { get; set; } = null!;
+        [JsonIgnore]
         public virtual Recipe Recipe { get; set; } = null!;
     }
 }

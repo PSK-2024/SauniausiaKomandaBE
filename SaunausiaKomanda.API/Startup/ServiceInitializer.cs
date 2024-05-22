@@ -26,11 +26,11 @@ namespace SaunausiaKomanda.API.Startup
                     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
                 }));
 
-            services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
-
             RegisterDbContext(services, config);
             RegisterDataAccessServices(services);
-            
+            RegisterBusinessLayerServices(services);
+
+
             return services;
         }
 
@@ -45,6 +45,7 @@ namespace SaunausiaKomanda.API.Startup
 
         private static void RegisterDataAccessServices(IServiceCollection services)
         {
+            services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IRecipeRepository, RecipeRepository>();
@@ -52,9 +53,13 @@ namespace SaunausiaKomanda.API.Startup
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IStepRepository, StepRepository>();
+        }
 
+        private static void RegisterBusinessLayerServices(IServiceCollection services)
+        {
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<IImageWriter, ImageToFileService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
     }
 }

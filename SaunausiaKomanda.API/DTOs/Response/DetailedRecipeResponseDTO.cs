@@ -21,6 +21,8 @@ namespace SaunausiaKomanda.API.DTOs.Response
         public List<DetailedRecipeInstructionResponseDTO> Steps { get; set; } = new List<DetailedRecipeInstructionResponseDTO>();
         [JsonPropertyName("reviews")]
         public List<DetailedRecipeReviewResponseDTO> Reviews { get; set; } = new List<DetailedRecipeReviewResponseDTO>();
+        [JsonPropertyName("categories")]
+        public List<DetailedRecipeCategoryDTO> Categories { get; set; } = new List<DetailedRecipeCategoryDTO>();
     }
 
     public class DetailedRecipeIngredientsResponseDTO
@@ -50,6 +52,12 @@ namespace SaunausiaKomanda.API.DTOs.Response
     }
 
     public class DetailedRecipeIngredientItemsDTO
+    {
+        [JsonPropertyName("name")]
+        public required string Name { get; set; }
+    }
+
+    public class DetailedRecipeCategoryDTO
     {
         [JsonPropertyName("name")]
         public required string Name { get; set; }

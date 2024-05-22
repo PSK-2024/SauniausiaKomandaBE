@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SaunausiaKomanda.API.Entities
 {
@@ -12,14 +13,21 @@ namespace SaunausiaKomanda.API.Entities
         // TODO: TBD whether we create an integration to retrieve nutritional values
         // Nutrition { get; set; }
         // Also how we will get information about cuisines, allergies, diet shown on main landing page filters
+        [JsonIgnore]
         public virtual Image Image { get; set; } = null!;
+        [JsonIgnore]
         public virtual ICollection<Category> Categories { get; } = new List<Category>();
+        [JsonIgnore]
         public virtual ICollection<Ingredient> Ingredients { get; } = new List<Ingredient>();
+        [JsonIgnore]
         public virtual ICollection<Review> Reviews { get; } = new List<Review>();
+        [JsonIgnore]
         public virtual ICollection<Step> Steps { get; } = new List<Step>();
+        [JsonIgnore]
         [DeleteBehavior(DeleteBehavior.ClientCascade)]
         public virtual ICollection<Favorite> Favorites { get; } = new List<Favorite>();
         public int UserId { get; set; }
+        [JsonIgnore]
         public virtual User User { get; set; } = null!;
         public DateTime CreationTime { get; set; }
         public DateTime? ModifiedDate { get; set; }
