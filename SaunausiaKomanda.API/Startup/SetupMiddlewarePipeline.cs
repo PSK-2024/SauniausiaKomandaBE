@@ -1,4 +1,6 @@
-﻿namespace SaunausiaKomanda.API.Startup
+﻿using SaunausiaKomanda.API.Middleware;
+
+namespace SaunausiaKomanda.API.Startup
 {
     public static class SetupMiddlewarePipeline
     {
@@ -20,6 +22,7 @@
             app.UseHttpsRedirection();
             
             app.UseAuthentication();
+            app.UseMiddleware<AuthorizationMiddleware>();
             app.UseAuthorization();
 
             app.UseStaticFiles();

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SaunausiaKomanda.API.Abstractions.Services;
 using SaunausiaKomanda.API.DTOs.Request;
-using System.Runtime.CompilerServices;
+using SaunausiaKomanda.API.Middleware;
 
 namespace SaunausiaKomanda.API.Controllers
 {
@@ -17,6 +17,7 @@ namespace SaunausiaKomanda.API.Controllers
         }
 
 
+        [SkipAuthorize]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
         {

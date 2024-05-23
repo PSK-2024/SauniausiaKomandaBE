@@ -3,7 +3,6 @@ using SaunausiaKomanda.API.Abstractions.Services;
 
 namespace SaunausiaKomanda.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
