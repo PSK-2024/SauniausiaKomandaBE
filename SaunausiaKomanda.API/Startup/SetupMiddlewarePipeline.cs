@@ -18,6 +18,10 @@
 
             app.UseCors("corsapp");
             app.UseHttpsRedirection();
+            
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseStaticFiles();
             app.MapControllers();
 

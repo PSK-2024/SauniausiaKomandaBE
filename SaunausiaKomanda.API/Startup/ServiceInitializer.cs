@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SaunausiaKomanda.API.Abstractions;
 using SaunausiaKomanda.API.Abstractions.Repositories;
 using SaunausiaKomanda.API.Abstractions.Services;
 using SaunausiaKomanda.API.Data;
 using SaunausiaKomanda.API.Data.Repositories;
 using SaunausiaKomanda.API.Services;
+using SaunausiaKomanda.API.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace SaunausiaKomanda.API.Startup
 {
@@ -20,6 +23,8 @@ namespace SaunausiaKomanda.API.Startup
                 var filePath = Path.Combine(AppContext.BaseDirectory, "SaunausiaKomanda.API.xml");
                 o.IncludeXmlComments(filePath);
             });
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
             services.AddCors(options =>
                 options.AddPolicy("corsapp", builder => {
@@ -60,6 +65,7 @@ namespace SaunausiaKomanda.API.Startup
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<IImageWriter, ImageToFileService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IIdentityService, IdentityService>();
         }
     }
 }

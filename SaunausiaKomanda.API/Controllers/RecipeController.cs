@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SaunausiaKomanda.API.Abstractions.Services;
 using SaunausiaKomanda.API.DTOs.Request;
 
 namespace SaunausiaKomanda.API.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RecipeController : ControllerBase
