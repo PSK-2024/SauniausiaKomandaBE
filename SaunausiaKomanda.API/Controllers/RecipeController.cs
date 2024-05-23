@@ -4,7 +4,6 @@ using SaunausiaKomanda.API.DTOs.Request;
 
 namespace SaunausiaKomanda.API.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class RecipeController : ControllerBase

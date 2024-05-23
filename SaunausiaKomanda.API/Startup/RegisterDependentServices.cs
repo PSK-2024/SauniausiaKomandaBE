@@ -1,4 +1,9 @@
-﻿namespace SaunausiaKomanda.API.Startup
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using SaunausiaKomanda.API.Options;
+using System.Text;
+
+namespace SaunausiaKomanda.API.Startup
 {
     public static class RegisterDependentServices
     {
@@ -7,6 +12,34 @@
             var config = builder.Configuration;
 
             builder.Services.AddApplicationInsightsTelemetry();
+
+            builder.Services.AddAuthentication(x => {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = config["JwtOptions:Issuer"],
+                    ValidAudience = config["JwtOptions:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey
+                        (Encoding.UTF8.GetBytes(config["JwtOptions:Key"]!)),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true
+                };
+            });
+
+            builder.Services.Configure<JwtOptions>(
+                builder.Configuration.GetSection(nameof(JwtOptions)));
+
+            builder.Services.Configure<DefaultPasswordOptions>(
+                builder.Configuration.GetSection(nameof(DefaultPasswordOptions)));
+
+            builder.Services.AddAuthorization();
+
             builder.Services.RegisterApplicationServices(config);
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
