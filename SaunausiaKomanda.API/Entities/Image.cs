@@ -1,4 +1,5 @@
 ﻿using SaunausiaKomanda.API.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace SaunausiaKomanda.API.Entities
 {
@@ -9,5 +10,7 @@ namespace SaunausiaKomanda.API.Entities
         public ImageLocation ImageLocation { get; set; }
         public DateTime CreationTime { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        [Timestamp]
+        public byte[] Version { get; set; } = null!;
     }
 }
