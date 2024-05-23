@@ -9,7 +9,8 @@ namespace SaunausiaKomanda.API.DTOs.Mappers
         public AutoMapperProfile()
         {
             CreateMap<Recipe, ShortRecipeResponseDTO>()
-                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image.Value));
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image.Value))
+                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.Categories.Select(x => x.Name).ToList()));
             CreateMap<Recipe, DetailedRecipeResponseDTO>()
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image.Value))
                 .ForMember(dest => dest.Ingredients, opt => opt.Ignore());
