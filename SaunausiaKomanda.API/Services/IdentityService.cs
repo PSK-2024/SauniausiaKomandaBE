@@ -35,7 +35,6 @@ namespace SaunausiaKomanda.API.Services
                 return new LoginResponseDTO(""); 
             }
 
-                
             var token = GenerateToken(loginDto);
             return new LoginResponseDTO(token);
         }
