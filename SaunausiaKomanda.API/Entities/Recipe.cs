@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -34,5 +35,7 @@ namespace SaunausiaKomanda.API.Entities
         public int? Calories { get; set; }
         [NotMapped]
         public double Rating => Reviews != null && Reviews.Any() ? Reviews.Average(x => x.Stars) : 0;
+        [Timestamp]
+        public byte[] Version { get; set; } = null!;
     }
 }

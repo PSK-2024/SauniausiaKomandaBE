@@ -60,6 +60,7 @@ namespace SaunausiaKomanda.API.Startup
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<IImageWriter, ImageToFileService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

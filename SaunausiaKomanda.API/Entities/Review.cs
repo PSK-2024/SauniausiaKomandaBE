@@ -21,5 +21,7 @@ namespace SaunausiaKomanda.API.Entities
         public string Comment { get; set; } = string.Empty;
         public DateTime CreationTime { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        [Timestamp]
+        public byte[] Version { get; set; } = null!;
     }
 }

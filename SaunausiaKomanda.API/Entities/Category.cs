@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace SaunausiaKomanda.API.Entities
@@ -10,5 +11,7 @@ namespace SaunausiaKomanda.API.Entities
         public string Name { get; set; } = null!;
         [JsonIgnore]
         public virtual ICollection<Recipe> Recipes { get; } = new List<Recipe>();
+        [Timestamp]
+        public byte[] Version { get; set; } = null!;
     }
 }

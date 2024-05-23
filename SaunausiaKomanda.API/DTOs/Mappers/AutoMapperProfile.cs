@@ -22,6 +22,14 @@ namespace SaunausiaKomanda.API.DTOs.Mappers
 
             CreateMap<Category, DetailedRecipeCategoryDTO>();
             CreateMap<Category, CategoryResponseDTO>();
+
+            CreateMap<User, UserProfileResponseDTO>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => src.Image.Value));
+
+            CreateMap<User, MyUserProfileResponseDTO>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => src.Image.Value));
         }
     }
 }
