@@ -51,6 +51,8 @@ namespace SaunausiaKomanda.API.DTOs.Response
         public int Stars { get; set; }
         [JsonPropertyName("creatorId")]
         public int UserId { get; set; }
+        [JsonPropertyName("creatorPicture")]
+        public int UserPicture { get; set; }
     }
 
     public class DetailedRecipeIngredientItemsDTO
