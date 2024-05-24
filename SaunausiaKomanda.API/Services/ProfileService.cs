@@ -64,15 +64,16 @@ namespace SaunausiaKomanda.API.Services
             currentUser.FirstName = updateRequest.FirstName;
             currentUser.LastName = updateRequest.LastName;
             currentUser.About = updateRequest.About;
-                
+
+            var image = await _imageWriter.SaveImageAsync(updateRequest.Image);
+            var imageEntity = new Image { Value = image, ImageLocation = ImageLocation.Fileserver };
+
             if (currentUser.Image != null)
             {
                 _imageWriter.DeleteImage(currentUser.Image.Value);
                 _unitOfWork.Images.Delete(currentUser.Image);
             }
 
-            var image = await _imageWriter.SaveImageAsync(updateRequest.Image);
-            var imageEntity = new Image { Value = image, ImageLocation = ImageLocation.Fileserver };
             currentUser.Image = imageEntity;
 
             await _unitOfWork.SaveAsync();
