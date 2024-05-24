@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - project-architecture-refactoring
   workflow_dispatch:
 
 jobs:
@@ -23,10 +24,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build SaunausiaKomanda.API\SaunausiaKomanda.API.csproj --configuration Release
+        run: dotnet build SauniausiaKomanda.API\SauniausiaKomanda.API.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish SaunausiaKomanda.API\SaunausiaKomanda.API.csproj -c Release -o ${{env.DOTNET_ROOT}}/pskbackend
+        run: dotnet publish SauniausiaKomanda.API\SauniausiaKomanda.API.csproj -c Release -o ${{env.DOTNET_ROOT}}/pskbackend
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
