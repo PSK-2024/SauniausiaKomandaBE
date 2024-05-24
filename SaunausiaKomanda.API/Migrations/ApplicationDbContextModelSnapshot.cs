@@ -37,7 +37,7 @@ namespace SaunausiaKomanda.API.Migrations
 
                     b.HasIndex("RecipesId");
 
-                    b.ToTable("CategoryRecipe");
+                    b.ToTable("CategoryRecipe", (string)null);
                 });
 
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.Category", b =>
@@ -63,7 +63,7 @@ namespace SaunausiaKomanda.API.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.Favorite", b =>
@@ -93,7 +93,7 @@ namespace SaunausiaKomanda.API.Migrations
                     b.HasIndex("UserId", "RecipeId")
                         .IsUnique();
 
-                    b.ToTable("Favorite");
+                    b.ToTable("Favorite", (string)null);
                 });
 
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.Image", b =>
@@ -125,7 +125,7 @@ namespace SaunausiaKomanda.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Image");
+                    b.ToTable("Image", (string)null);
                 });
 
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.Ingredient", b =>
@@ -157,7 +157,7 @@ namespace SaunausiaKomanda.API.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Ingredient");
+                    b.ToTable("Ingredient", (string)null);
                 });
 
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.Recipe", b =>
@@ -205,7 +205,7 @@ namespace SaunausiaKomanda.API.Migrations
                     b.HasIndex("Title", "UserId")
                         .IsUnique();
 
-                    b.ToTable("Recipe");
+                    b.ToTable("Recipe", (string)null);
                 });
 
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.Review", b =>
@@ -248,7 +248,7 @@ namespace SaunausiaKomanda.API.Migrations
                     b.HasIndex("UserId", "RecipeId")
                         .IsUnique();
 
-                    b.ToTable("Review");
+                    b.ToTable("Review", (string)null);
                 });
 
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.Step", b =>
@@ -280,7 +280,7 @@ namespace SaunausiaKomanda.API.Migrations
                     b.HasIndex("RecipeId", "Sequence")
                         .IsUnique();
 
-                    b.ToTable("Step");
+                    b.ToTable("Step", (string)null);
                 });
 
             modelBuilder.Entity("SaunausiaKomanda.API.Entities.User", b =>
@@ -333,7 +333,7 @@ namespace SaunausiaKomanda.API.Migrations
 
                     b.HasIndex("ImageId");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("CategoryRecipe", b =>

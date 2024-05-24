@@ -18,7 +18,6 @@ namespace SaunausiaKomanda.API.Entities
         public DateTime? ModifiedDate { get; set; }
         public string About { get; set; } = string.Empty;
         [JsonIgnore]
-        [DeleteBehavior(DeleteBehavior.ClientCascade)]
         public virtual Image? Image { get; set; }
         [JsonIgnore]
         [DeleteBehavior(DeleteBehavior.ClientCascade)]

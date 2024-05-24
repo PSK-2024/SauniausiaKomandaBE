@@ -65,7 +65,7 @@ namespace SaunausiaKomanda.API.Services
             currentUser.LastName = updateRequest.LastName;
             currentUser.About = updateRequest.About;
                 
-            if (currentUser.Image  != null)
+            if (currentUser.Image != null)
             {
                 _imageWriter.DeleteImage(currentUser.Image.Value);
                 _unitOfWork.Images.Delete(currentUser.Image);
