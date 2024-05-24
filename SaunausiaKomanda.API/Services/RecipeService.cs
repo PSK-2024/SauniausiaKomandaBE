@@ -16,16 +16,25 @@ namespace SaunausiaKomanda.API.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IImageWriter _imageWriter;
+        private readonly IIdentityService _identityService;
 
-        public RecipeService(IUnitOfWork unitOfWork, IMapper mapper, IImageWriter imageWriter)
+        public RecipeService(
+            IUnitOfWork unitOfWork, 
+            IMapper mapper, 
+            IImageWriter imageWriter, 
+            IIdentityService identityService
+        )
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _imageWriter = imageWriter;
+            _identityService = identityService;
         }
 
         public async Task<DetailedRecipeResponseDTO> GetRecipeByIdAsync(int id)
         {
+            var user = await _identityService.GetCurrentUser();
+
             var recipe = await _unitOfWork.Recipes.GetAsync(x => x.Id == id);
             if (recipe == null)
             {
@@ -49,11 +58,17 @@ namespace SaunausiaKomanda.API.Services
                 }
             }
 
+            if (user.Favorites.Any(x => x.RecipeId == recipe.Id))
+            {
+                result.isFavorite = true;
+            }
+
             return result;
         }
 
         public async Task<List<ShortRecipeResponseDTO>> GetRecipesShortAsync(string? categoryFilter)
         {
+            var user = await _identityService.GetCurrentUser();
             var queryPred = PredicateBuilder.True<Recipe>();
 
             if (categoryFilter != null)
@@ -70,12 +85,19 @@ namespace SaunausiaKomanda.API.Services
             var allRecipes = await _unitOfWork.Recipes.GetManyAsync(queryPred);
             var result = _mapper.Map<List<ShortRecipeResponseDTO>>(allRecipes.ToList());
 
+            foreach (var recipe in result)
+            {
+                if (user.Favorites.Any(x => x.RecipeId == recipe.Id))
+                {
+                    recipe.isFavorite = true;
+                }
+            }
+
             return result;
         }
 
         public async Task<List<ShortRecipeResponseDTO>> GetRecommendedAsync(int top)
         {
-            // TODO: Need to check after more reviews/recipes are added [sus]
             var allRecipes = await _unitOfWork.Recipes.GetManyAsync(orderBy: x => x.OrderByDescending(p => p.Reviews.Average(r => r.Stars)), itemsToTake: top);
             var result = _mapper.Map<List<ShortRecipeResponseDTO>>(allRecipes.ToList());
 
@@ -97,7 +119,6 @@ namespace SaunausiaKomanda.API.Services
             var image = await _imageWriter.SaveImageAsync(recipeToCreate.Image);
             var imageEntity = new Image { Value = image, ImageLocation = ImageLocation.Fileserver };
             recipe.Image = imageEntity;
-            // todo: prob insert
 
             foreach (var category in recipeToCreate.Categories)
             {
@@ -109,7 +130,6 @@ namespace SaunausiaKomanda.API.Services
             {
                 var stepEntity = new Step { Description = step, Sequence = i };
                 recipe.Steps.Add(stepEntity);
-                // todo: probably need to insert
             }
 
             foreach (var ingredientGroup in recipeToCreate.IngredientGroups)
@@ -118,13 +138,30 @@ namespace SaunausiaKomanda.API.Services
                 {
                     var ingredientEntity = new Ingredient { Description = ingredient, Group = ingredientGroup.Group };
                     recipe.Ingredients.Add(ingredientEntity);
-                    // todo: probably need to insert
                 }
             }
             await _unitOfWork.Recipes.CreateAsync(recipe);
             await _unitOfWork.SaveAsync();
 
             return recipe.Id;
+        }
+
+        public async Task AddFavorite(FavoriteRequestDTO favoriteToAdd)
+        {
+            var user = await _identityService.GetCurrentUser();
+
+            var favorite = new Favorite { UserId = user.Id, RecipeId = favoriteToAdd.RecipeId };
+            user.Favorites.Add(favorite);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task RemoveFavorite(FavoriteRequestDTO favoriteToRemove)
+        {
+            var user = await _identityService.GetCurrentUser();
+
+            var favorite = user.Favorites.FirstOrDefault(x => x.UserId == user.Id && x.RecipeId == favoriteToRemove.RecipeId) ?? throw new Exception("You have not favorited this recipe");
+            user.Favorites.Remove(favorite);
+            await _unitOfWork.SaveAsync();
         }
     }
 }

@@ -10,5 +10,7 @@ namespace SaunausiaKomanda.API.Abstractions.Services
         public Task<List<ShortRecipeResponseDTO>> GetRecommendedAsync(int top);
         public Task<List<ShortRecipeResponseDTO>> GetRecipesShortAsync(string? categoryFilter);
         public Task<int> CreateRecipeAsync(CreateRecipeRequestDTO recipeToCreate);
+        public Task AddFavorite(FavoriteRequestDTO favoriteToAdd);
+        public Task RemoveFavorite(FavoriteRequestDTO favoriteToRemove);
     }
 }

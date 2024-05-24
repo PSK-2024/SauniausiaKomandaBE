@@ -43,5 +43,21 @@ namespace SaunausiaKomanda.API.Controllers
         {
             return Created(nameof(GetRecipeById), new { id = await _recipeService.CreateRecipeAsync(recipeToCreate)});
         }
+
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpDelete("favorite")]
+        public async Task<IActionResult> RemoveFavorite([FromBody] FavoriteRequestDTO favoriteToDelete)
+        {
+            await _recipeService.RemoveFavorite(favoriteToDelete);
+            return NoContent();
+        }
+
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpPost("favorite")]
+        public async Task<IActionResult> AddFavorite([FromBody] FavoriteRequestDTO favoriteToAdd)
+        {
+            await _recipeService.AddFavorite(favoriteToAdd);
+            return NoContent();
+        }
     }
 }

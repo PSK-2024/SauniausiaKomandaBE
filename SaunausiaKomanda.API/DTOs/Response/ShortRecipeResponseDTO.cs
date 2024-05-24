@@ -14,6 +14,8 @@ namespace SaunausiaKomanda.API.DTOs.Response
         public string? Image { get; set; }
         [JsonPropertyName("duration")]
         public int PreparationTimeInMinutes { get; set; }
+        [JsonPropertyName("favorite")]
+        public bool isFavorite { get; set; }
         [JsonPropertyName("categories")]
         public List<string> Categories { get; set; } = new List<string>();
     }

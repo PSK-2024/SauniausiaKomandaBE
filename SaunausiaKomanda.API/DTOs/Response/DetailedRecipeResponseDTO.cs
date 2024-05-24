@@ -15,6 +15,8 @@ namespace SaunausiaKomanda.API.DTOs.Response
         public int Calories { get; set; }
         [JsonPropertyName("image")]
         public required string Image { get; set; }
+        [JsonPropertyName("favorite")]
+        public bool isFavorite { get; set; }
         [JsonPropertyName("ingredients")]
         public List<DetailedRecipeIngredientsResponseDTO> Ingredients { get; set; } = new List<DetailedRecipeIngredientsResponseDTO>();
         [JsonPropertyName("instructions")]
