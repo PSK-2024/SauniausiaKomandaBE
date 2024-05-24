@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 using SaunausiaKomanda.API.Abstractions.Services;
 using SaunausiaKomanda.API.DTOs.Request;
 using SaunausiaKomanda.API.Middleware;
@@ -29,6 +30,21 @@ namespace SaunausiaKomanda.API.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpGet("user")]
+        public async Task<IActionResult> GetUser()
+        {
+            var authHeader = Request.Headers["Authorization"].FirstOrDefault();
+
+            if (authHeader != null && authHeader.StartsWith("Bearer "))
+            {
+                var token = authHeader.Substring("Bearer ".Length).Trim();
+
+                return Ok(await _identityService.GetUserFromJwtToken(token));
+            }
+
+            return Unauthorized();
         }
     }
 }
