@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using SaunausiaKomanda.API.Options;
+using SauniausiaKomanda.BLL.Options;
 using System.Text;
 
-namespace SaunausiaKomanda.API.Startup
+namespace SauniausiaKomanda.API.Startup
 {
     public static class RegisterDependentServices
     {
@@ -13,7 +13,8 @@ namespace SaunausiaKomanda.API.Startup
 
             builder.Services.AddApplicationInsightsTelemetry();
 
-            builder.Services.AddAuthentication(x => {
+            builder.Services.AddAuthentication(x =>
+            {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -1,14 +1,14 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Mvc;
-using SaunausiaKomanda.API.Abstractions.Services;
-using SaunausiaKomanda.API.DTOs.Request;
-using SaunausiaKomanda.API.Middleware;
+using SauniausiaKomanda.BLL.Services.Abstractions;
+using SauniausiaKomanda.BLL.DTOs.Request;
+using SauniausiaKomanda.API.Middleware;
 
-namespace SaunausiaKomanda.API.Controllers
+namespace SauniausiaKomanda.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IdentityController: ControllerBase
+    public class IdentityController : ControllerBase
     {
         private readonly IIdentityService _identityService;
 
