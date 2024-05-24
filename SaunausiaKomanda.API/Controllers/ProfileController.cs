@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SauniausiaKomanda.BLL.Services.Abstractions;
-using SauniausiaKomanda.BLL.DTOs.Request;
+using SaunausiaKomanda.API.Abstractions.Services;
+using SaunausiaKomanda.API.DTOs.Request;
 
-namespace SauniausiaKomanda.API.Controllers
+namespace SaunausiaKomanda.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

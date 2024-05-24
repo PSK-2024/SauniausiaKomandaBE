@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace SauniausiaKomanda.API.Middleware
+namespace SaunausiaKomanda.API.Middleware
 {
     public class AuthorizationMiddleware
     {
@@ -20,7 +20,7 @@ namespace SauniausiaKomanda.API.Middleware
                 if (endpoint != null)
                 {
                     var skipAuthorize = endpoint.Metadata.GetMetadata<SkipAuthorizeAttribute>();
-
+                    
                     if (skipAuthorize == null)
                     {
                         context.Response.StatusCode = StatusCodes.Status401Unauthorized;

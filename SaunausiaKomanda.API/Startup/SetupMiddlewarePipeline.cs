@@ -1,6 +1,6 @@
-﻿using SauniausiaKomanda.API.Middleware;
+﻿using SaunausiaKomanda.API.Middleware;
 
-namespace SauniausiaKomanda.API.Startup
+namespace SaunausiaKomanda.API.Startup
 {
     public static class SetupMiddlewarePipeline
     {
@@ -9,18 +9,18 @@ namespace SauniausiaKomanda.API.Startup
             //TODO: For easier debugging
             //if (app.Environment.IsDevelopment())
             //{
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                options.DocumentTitle = "Šauniausia Komanda API";
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            });
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.DocumentTitle = "Šaunausia Komanda API";
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                });
             //}
 
 
             app.UseCors("corsapp");
             app.UseHttpsRedirection();
-
+            
             app.UseAuthentication();
             app.UseMiddleware<AuthorizationMiddleware>();
             app.UseAuthorization();

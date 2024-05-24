@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SauniausiaKomanda.BLL.Services.Abstractions;
-using SauniausiaKomanda.BLL.DTOs.Request;
+using SaunausiaKomanda.API.Abstractions.Services;
+using SaunausiaKomanda.API.DTOs.Request;
 
-namespace SauniausiaKomanda.API.Controllers
+namespace SaunausiaKomanda.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -41,7 +41,7 @@ namespace SauniausiaKomanda.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeRequestDTO recipeToCreate)
         {
-            return Created(nameof(GetRecipeById), new { id = await _recipeService.CreateRecipeAsync(recipeToCreate) });
+            return Created(nameof(GetRecipeById), new { id = await _recipeService.CreateRecipeAsync(recipeToCreate)});
         }
 
         [ProducesResponseType(StatusCodes.Status204NoContent)]
