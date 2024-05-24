@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SaunausiaKomanda.API.DTOs.Request;
 using SaunausiaKomanda.API.DTOs.Response;
 using SaunausiaKomanda.API.Entities;
 
@@ -16,8 +17,7 @@ namespace SaunausiaKomanda.API.DTOs.Mappers
                 .ForMember(dest => dest.Ingredients, opt => opt.Ignore());
 
             CreateMap<Review, DetailedRecipeReviewResponseDTO>()
-                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => $"{src.User.FirstName} {src.User.LastName}"))
-                .ForMember(dest => dest.UserPicture, opt => opt.MapFrom(src => src.User.Image != null ? src.User.Image.Value : "defaultprofile.jpg"));
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User));
 
             CreateMap<Step, DetailedRecipeInstructionResponseDTO>();
 
@@ -28,6 +28,11 @@ namespace SaunausiaKomanda.API.DTOs.Mappers
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image != null ? src.Image.Value : "defaultprofile.jpg"));
 
             CreateMap<User, UserDTO>()
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image != null ? src.Image.Value : "defaultprofile.jpg"));
+
+            CreateMap<AddReviewRequestDTO, Review>();
+
+            CreateMap<User, DetailedRecipeAuthorDTO>()
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image != null ? src.Image.Value : "defaultprofile.jpg"));
         }
     }

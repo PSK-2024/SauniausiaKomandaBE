@@ -14,7 +14,8 @@ namespace SaunausiaKomanda.API.Data
             IUserRepository userRepository,
             ICategoryRepository categoryRepository,
             IImageRepository imageRepository,
-            IStepRepository stepRepository)
+            IStepRepository stepRepository,
+            IReviewRepository reviews)
         {
             _context = context;
             Recipes = recipeRepository;
@@ -22,6 +23,7 @@ namespace SaunausiaKomanda.API.Data
             Images = imageRepository;
             Categories = categoryRepository;
             Steps = stepRepository;
+            Reviews = reviews;
         }
 
         public IRecipeRepository Recipes { get; }
@@ -29,6 +31,7 @@ namespace SaunausiaKomanda.API.Data
         public IImageRepository Images { get; }
         public ICategoryRepository Categories { get; }
         public IStepRepository Steps { get; }
+        public IReviewRepository Reviews { get; }
 
         private bool _disposed = false;
         protected virtual void Dispose(bool disposing)

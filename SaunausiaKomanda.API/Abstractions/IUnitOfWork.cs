@@ -9,6 +9,7 @@ namespace SaunausiaKomanda.API.Abstractions
         IImageRepository Images { get; }
         ICategoryRepository Categories { get; }
         IStepRepository Steps { get; }
+        IReviewRepository Reviews { get; }
 
         Task SaveAsync(CancellationToken cancellationToken = default);
     }

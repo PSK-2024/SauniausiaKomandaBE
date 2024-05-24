@@ -58,6 +58,7 @@ namespace SaunausiaKomanda.API.Startup
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IStepRepository, StepRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
         }
 
         private static void RegisterBusinessLayerServices(IServiceCollection services)
@@ -67,6 +68,7 @@ namespace SaunausiaKomanda.API.Startup
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IReviewService, ReviewService>();
         }
     }
 }

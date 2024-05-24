@@ -14,7 +14,7 @@ namespace SaunausiaKomanda.API.DTOs.Response
         [JsonPropertyName("calories")]
         public int Calories { get; set; }
         [JsonPropertyName("image")]
-        public string? Image { get; set; }
+        public required string Image { get; set; }
         [JsonPropertyName("ingredients")]
         public List<DetailedRecipeIngredientsResponseDTO> Ingredients { get; set; } = new List<DetailedRecipeIngredientsResponseDTO>();
         [JsonPropertyName("instructions")]
@@ -28,7 +28,7 @@ namespace SaunausiaKomanda.API.DTOs.Response
     public class DetailedRecipeIngredientsResponseDTO
     {
         [JsonPropertyName("groupName")]
-        public string? GroupName { get; set; }
+        public required string GroupName { get; set; }
         [JsonPropertyName("items")]
         public List<DetailedRecipeIngredientItemsDTO> Items { get; set; } = new List<DetailedRecipeIngredientItemsDTO>();
     }
@@ -44,15 +44,11 @@ namespace SaunausiaKomanda.API.DTOs.Response
         [JsonPropertyName("id")]
         public int Id { get; set; }
         [JsonPropertyName("text")]
-        public string? Comment { get; set; }
+        public required string Comment { get; set; }
         [JsonPropertyName("author")]
-        public string? Author { get; set; }
+        public required DetailedRecipeAuthorDTO Author { get; set; }
         [JsonPropertyName("rating")]
         public int Stars { get; set; }
-        [JsonPropertyName("creatorId")]
-        public int UserId { get; set; }
-        [JsonPropertyName("creatorPicture")]
-        public required string UserPicture { get; set; }
     }
 
     public class DetailedRecipeIngredientItemsDTO
@@ -65,5 +61,19 @@ namespace SaunausiaKomanda.API.DTOs.Response
     {
         [JsonPropertyName("name")]
         public required string Name { get; set; }
+    }
+
+    public class DetailedRecipeAuthorDTO
+    {
+        [JsonPropertyName("userId")]
+        public int Id { get; set; }
+        [JsonPropertyName("email")]
+        public required string Email { get; set; }
+        [JsonPropertyName("firstName")]
+        public required string FirstName { get; set; }
+        [JsonPropertyName("lastName")]
+        public required string LastName { get; set; }
+        [JsonPropertyName("image")]
+        public required string Image { get; set; }
     }
 }
