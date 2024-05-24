@@ -1,4 +1,4 @@
-using SaunausiaKomanda.API.Startup;
+using SauniausiaKomanda.API.Startup;
 
 WebApplication.CreateBuilder(args)
     .RegisterServices()

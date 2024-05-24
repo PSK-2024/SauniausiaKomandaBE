@@ -2,7 +2,7 @@
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
 
-namespace SaunausiaKomanda.API.Swagger
+namespace SauniausiaKomanda.API.Swagger
 {
     public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
