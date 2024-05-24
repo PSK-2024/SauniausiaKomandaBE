@@ -36,18 +36,7 @@ namespace SaunausiaKomanda.API.Services
                     throw new Exception("Invalid image type");
             }
 
-            string path;
-            if (_environment.WebRootPath is not null)
-            {
-                path = _environment.WebRootPath;
-                path = Path.Combine(path, "images");
-            }
-            else
-            {
-                path = Directory.GetCurrentDirectory();
-            }
-            Directory.CreateDirectory(path);
-            path = Path.Combine(path, uniqueFileName);
+            string path = Path.Combine(GetImageDirPath(), uniqueFileName);
 
             if (encoding != "base64")
             {
@@ -59,6 +48,29 @@ namespace SaunausiaKomanda.API.Services
             await File.WriteAllBytesAsync(path, imgByteArray);
 
             return uniqueFileName;
+        }
+
+        public void DeleteImage(string image)
+        {
+            string path = Path.Combine(GetImageDirPath(), image);
+            File.Delete(path);
+        }
+
+        private string GetImageDirPath()
+        {
+            string path;
+            if (_environment.WebRootPath is not null)
+            {
+                path = _environment.WebRootPath;
+                path = Path.Combine(path, "images");
+            }
+            else
+            {
+                path = Directory.GetCurrentDirectory();
+            }
+            Directory.CreateDirectory(path);
+
+            return path;
         }
     }
 }

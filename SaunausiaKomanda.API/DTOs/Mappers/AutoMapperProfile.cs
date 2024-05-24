@@ -25,12 +25,7 @@ namespace SaunausiaKomanda.API.DTOs.Mappers
             CreateMap<Category, CategoryResponseDTO>();
 
             CreateMap<User, UserProfileResponseDTO>()
-                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
-                .ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => src.Image != null ? src.Image.Value : "defaultprofile.jpg"));
-
-            CreateMap<User, MyUserProfileResponseDTO>()
-                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
-                .ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => src.Image != null ? src.Image.Value : "defaultprofile.jpg"));
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image != null ? src.Image.Value : "defaultprofile.jpg"));
 
             CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image != null ? src.Image.Value : "defaultprofile.jpg"));

@@ -5,6 +5,7 @@ using SaunausiaKomanda.API.Abstractions;
 using SaunausiaKomanda.API.Abstractions.Services;
 using SaunausiaKomanda.API.DTOs.Request;
 using SaunausiaKomanda.API.DTOs.Response;
+using SaunausiaKomanda.API.Entities;
 using SaunausiaKomanda.API.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -18,17 +19,31 @@ namespace SaunausiaKomanda.API.Services
         private readonly DefaultPasswordOptions _defaultPasswordOptions;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public IdentityService(
             IOptions<JwtOptions> jwtOptions,
             IOptionsSnapshot<DefaultPasswordOptions> defaultPasswordOptions,
             IUnitOfWork unitOfWork,
-            IMapper mapper)
+            IMapper mapper,
+            IHttpContextAccessor httpContextAccessor)
         {
             _jwtOptions = jwtOptions.Value;
             _defaultPasswordOptions = defaultPasswordOptions.Value;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public async Task<User> GetCurrentUser()
+        {
+            var context = _httpContextAccessor.HttpContext ?? throw new Exception("Internal error");
+
+            var userEmailClaim = context.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email) ?? throw new Exception("Invalid token"); ;
+
+            var user = await _unitOfWork.Users.GetAsync(x => x.Email == userEmailClaim.Value) ?? throw new Exception("Invalid token, no user found");
+
+            return user;
         }
 
         public async Task<UserDTO> GetUserFromJwtToken(string token)
