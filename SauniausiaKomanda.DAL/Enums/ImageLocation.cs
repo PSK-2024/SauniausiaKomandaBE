@@ -2,8 +2,7 @@
 {
     public enum ImageLocation
     {
-        Default,
-        Database,
+        Blobstorage,
         Fileserver
     }
 }
