@@ -24,6 +24,7 @@ namespace SauniausiaKomanda.API.Startup
             app.UseAuthentication();
             app.UseMiddleware<AuthorizationMiddleware>();
             app.UseAuthorization();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseStaticFiles();
             app.MapControllers();
