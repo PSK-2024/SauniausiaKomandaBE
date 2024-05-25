@@ -9,7 +9,7 @@ namespace SauniausiaKomanda.BLL.Container
         public static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IRecipeService, RecipeService>();
-            services.AddScoped<IImageWriter, ImageToFileService>();
+            services.AddScoped<IImageWriter, ImageService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IIdentityService, IdentityService>();

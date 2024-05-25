@@ -39,6 +39,12 @@ namespace SauniausiaKomanda.API.Startup
             builder.Services.Configure<DefaultPasswordOptions>(
                 builder.Configuration.GetSection(nameof(DefaultPasswordOptions)));
 
+            builder.Services.Configure<BlobStorageConnectionOptions>(
+                builder.Configuration.GetSection(nameof(BlobStorageConnectionOptions)));
+
+            builder.Services.Configure<ImageServiceOptions>(
+                builder.Configuration.GetSection(nameof(ImageServiceOptions)));
+
             builder.Services.AddAuthorization();
 
             builder.Services.RegisterApplicationServices(config);
