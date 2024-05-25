@@ -19,10 +19,10 @@ namespace SauniausiaKomanda.API.Startup
             app.UseAuthentication();
             app.UseMiddleware<AuthorizationMiddleware>();
             app.UseAuthorization();
+            app.UseStaticFiles();
             app.UseMiddleware<ExceptionHandlerMiddleware>();
             app.UseMiddleware<LoggingMiddleware>();           
 
-            app.UseStaticFiles();
             app.MapControllers();
 
             return app;
