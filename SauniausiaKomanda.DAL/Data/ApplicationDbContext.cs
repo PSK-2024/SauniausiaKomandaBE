@@ -19,6 +19,7 @@ namespace SauniausiaKomanda.DAL.Data
         public virtual DbSet<Ingredient> Ingredient { get; set; }
         public virtual DbSet<Step> Step { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Log> Log { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

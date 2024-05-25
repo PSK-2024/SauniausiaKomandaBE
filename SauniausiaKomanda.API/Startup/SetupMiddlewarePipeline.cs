@@ -6,17 +6,12 @@ namespace SauniausiaKomanda.API.Startup
     {
         public static WebApplication SetupMiddleware(this WebApplication app)
         {
-            //TODO: For easier debugging
-            //if (app.Environment.IsDevelopment())
-            //{
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
                 options.DocumentTitle = "Šauniausia Komanda API";
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
-            //}
-
 
             app.UseCors("corsapp");
             app.UseHttpsRedirection();
@@ -25,6 +20,7 @@ namespace SauniausiaKomanda.API.Startup
             app.UseMiddleware<AuthorizationMiddleware>();
             app.UseAuthorization();
             app.UseMiddleware<ExceptionHandlerMiddleware>();
+            app.UseMiddleware<LoggingMiddleware>();           
 
             app.UseStaticFiles();
             app.MapControllers();

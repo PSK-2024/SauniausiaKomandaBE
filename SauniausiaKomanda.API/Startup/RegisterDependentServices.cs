@@ -45,6 +45,9 @@ namespace SauniausiaKomanda.API.Startup
             builder.Services.Configure<ImageServiceOptions>(
                 builder.Configuration.GetSection(nameof(ImageServiceOptions)));
 
+            builder.Services.Configure<LoggingOptions>(
+                builder.Configuration.GetSection(nameof(LoggingOptions)));
+
             builder.Services.AddAuthorization();
 
             builder.Services.RegisterApplicationServices(config);

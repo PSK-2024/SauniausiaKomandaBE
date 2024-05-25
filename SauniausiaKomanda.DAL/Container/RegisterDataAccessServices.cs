@@ -21,6 +21,7 @@ namespace SauniausiaKomanda.DAL.Container
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IStepRepository, StepRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
         }
 
         public static void RegisterDbContext(IServiceCollection services, IConfiguration config)
