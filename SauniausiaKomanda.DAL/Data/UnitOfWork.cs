@@ -14,7 +14,8 @@ namespace SauniausiaKomanda.DAL.Data
             ICategoryRepository categoryRepository,
             IImageRepository imageRepository,
             IStepRepository stepRepository,
-            IReviewRepository reviews)
+            IReviewRepository reviews,
+            ILogRepository logs)
         {
             _context = context;
             Recipes = recipeRepository;
@@ -23,6 +24,7 @@ namespace SauniausiaKomanda.DAL.Data
             Categories = categoryRepository;
             Steps = stepRepository;
             Reviews = reviews;
+            Logs = logs;
         }
 
         public IRecipeRepository Recipes { get; }
@@ -31,6 +33,7 @@ namespace SauniausiaKomanda.DAL.Data
         public ICategoryRepository Categories { get; }
         public IStepRepository Steps { get; }
         public IReviewRepository Reviews { get; }
+        public ILogRepository Logs { get; }
 
         private bool _disposed = false;
         protected virtual void Dispose(bool disposing)
