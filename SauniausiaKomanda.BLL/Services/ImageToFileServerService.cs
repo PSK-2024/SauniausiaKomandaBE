@@ -4,11 +4,11 @@ using System.Text.RegularExpressions;
 
 namespace SauniausiaKomanda.BLL.Services
 {
-    public class ImageToFileService : IImageWriter
+    public class ImageToFileServerService : IImageWriter
     {
         private readonly IWebHostEnvironment _environment;
 
-        public ImageToFileService(IWebHostEnvironment environment)
+        public ImageToFileServerService(IWebHostEnvironment environment)
         {
             _environment = environment;
         }

@@ -37,8 +37,8 @@ namespace SauniausiaKomanda.BLL.Services
             => imageLocation switch
             {
                 ImageLocation.Blobstorage => new ImageToBlobStorageService(blobOptions),
-                ImageLocation.Fileserver => new ImageToFileService(webHostEnvironment),
-                _ => new ImageToFileService(webHostEnvironment)
+                ImageLocation.Fileserver => new ImageToFileServerService(webHostEnvironment),
+                _ => new ImageToFileServerService(webHostEnvironment)
             };
     }
 }
