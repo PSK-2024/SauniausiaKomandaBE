@@ -36,7 +36,7 @@ namespace SauniausiaKomanda.BLL.Services
         private IImageWriter GetImageServiceImplementation(ImageLocation imageLocation, IWebHostEnvironment webHostEnvironment, IOptions<BlobStorageConnectionOptions> blobOptions) 
             => imageLocation switch
             {
-                ImageLocation.BlobStorage => new ImageToBlobStorageService(blobOptions),
+                ImageLocation.Blobstorage => new ImageToBlobStorageService(blobOptions),
                 ImageLocation.Fileserver => new ImageToFileService(webHostEnvironment),
                 _ => new ImageToFileService(webHostEnvironment)
             };
