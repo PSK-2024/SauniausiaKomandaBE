@@ -96,8 +96,17 @@ namespace SauniausiaKomanda.BLL.Services
 
         public async Task<List<ShortRecipeResponseDTO>> GetRecommendedAsync(int top)
         {
+            var user = await _identityService.GetCurrentUser();
             var allRecipes = await _unitOfWork.Recipes.GetManyAsync(orderBy: x => x.OrderByDescending(p => p.Reviews.Average(r => r.Stars)), itemsToTake: top);
             var result = _mapper.Map<List<ShortRecipeResponseDTO>>(allRecipes.ToList());
+
+            foreach (var recipe in result)
+            {
+                if (user.Favorites.Any(x => x.RecipeId == recipe.Id))
+                {
+                    recipe.isFavorite = true;
+                }
+            }
 
             return result;
         }
