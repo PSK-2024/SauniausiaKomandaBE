@@ -120,8 +120,8 @@ namespace SauniausiaKomanda.BLL.Services
                 Calories = recipeToCreate.Calories
             };
 
-            var createdBy = await _unitOfWork.Users.GetAsync(x => x.Id == 1) ?? throw new Exception("User not found"); //TODO: after auth is created get current user
-            recipe.User = createdBy;
+            var user = await _identityService.GetCurrentUser();
+            recipe.User = user;
 
             var image = await _imageWriter.SaveImageAsync(recipeToCreate.Image);
             var imageEntity = new Image { Value = image, ImageLocation = ImageLocation.Fileserver };
